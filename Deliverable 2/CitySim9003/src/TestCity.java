@@ -12,6 +12,7 @@ public class TestCity {
 	Location mockLoc = Mockito.mock(Location.class);
 	Road mockRoad = Mockito.mock(Road.class);
 	Random mockRandom = Mockito.mock(Random.class);
+	@SuppressWarnings("unchecked")
 	ArrayList<Road> mockList = Mockito.mock(ArrayList.class);
 	
 	@Test
@@ -112,7 +113,7 @@ public class TestCity {
 	public void getNextDestinationTest(){
 		City c = new City();
 		c.addRoad(mockRoad);
-		ArrayList<Road> list = new ArrayList();
+		ArrayList<Road> list = new ArrayList<>();
 		list.add(mockRoad);
 		Mockito.when(mockRoad.getStart()).thenReturn("Kappa");
 		assertEquals(c.getNextDestination("Kappa"),list);
