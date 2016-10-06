@@ -30,13 +30,23 @@ public class TestDriver {
 		ArrayList<Road> list = new ArrayList<>();
 		Road road = new Road("Kappa","Kappa St","Bill's Office");
 		list.add(road);
-		Mockito.when(mockLoc.getLocation()).thenReturn("Kappa");
 		Mockito.when(mockCity.getNextDestination(mockLoc.getLocation())).thenReturn(list);
 		Mockito.when(mockRandom.nextInt()).thenReturn(0);
 		assertEquals(driver.driveAround(mockRandom),road);
 	}
 	
-
+	@Test(expected=Exception.class)
+	//Sometimes it is possible to null out if there is no list available.
+	//Uses mock random class to always get 0
+	//Fakes the getNextDestination to ensure null
+	//Stubs everything for assumed behavior.
+	public void driveAroundFailTest() {
+		Driver driver = new Driver(mockCity, mockLoc);
+		Mockito.when(mockCity.getNextDestination(mockLoc.getLocation())).thenReturn(null);
+		Mockito.when(mockRandom.nextInt()).thenReturn(0);
+		driver.driveAround(mockRandom);
+	}
+	
 	@Test
 	//Tests the getter for location
 	//Mock's city since it's never needed.
